@@ -17,7 +17,6 @@ class NasaService {
         method: "GET",
       });
       const data = await response.json();
-    //   this.stored[type] = data;
       return data;
     } catch (error) {
       console.error(error);

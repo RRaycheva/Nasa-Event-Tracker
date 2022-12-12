@@ -7,6 +7,7 @@ import {
   LOAD_CATEGORIES,
   LOAD_EVENTS,
 } from "./NasaContext/NasaContextActionsType";
+import { DEFAULT_SELECTED_ZOOM } from "./constants";
 
 const App = () => {
   const [currentEvent, setCurrentEvent] = useState();
@@ -29,7 +30,7 @@ const App = () => {
     return {
       longitude: currentEvent ? coordinates[0] : 0,
       latitude: currentEvent ? coordinates[1] : 0,
-      zoom: currentEvent ? 5 : 0,
+      zoom: currentEvent ? DEFAULT_SELECTED_ZOOM : 0,
     };
   }, [currentEvent]);
 

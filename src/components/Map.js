@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map as MapBox } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { FlyToInterpolator, IconLayer } from "deck.gl";
-import { MAP_STYLE, MAP_ICON } from "../constants";
+import {
+  MAP_STYLE,
+  MAP_ICON,
+  MAP_TRANSITION_DURATION,
+  DEFAULT_ICON_SIZE,
+} from "../constants";
 import { getPosition } from "../utils";
 
 const ICON_MAPPING = {
@@ -21,27 +26,31 @@ const Map = ({ data, onClick, onMapClick, viewStateOptions }) => {
     setViewState((current) => ({
       ...current,
       ...viewStateOptions,
-      transitionDuration: 500,
+      transitionDuration: MAP_TRANSITION_DURATION,
       transitionInterpolator: new FlyToInterpolator(),
     }));
   }, [viewStateOptions]);
 
-  const layer = new IconLayer({
-    id: "IconLayer",
-    data,
-    getIcon: () => "marker",
-    getPosition,
-    onClick,
-    getSize: () => 5,
-    iconAtlas: MAP_ICON,
-    iconMapping: ICON_MAPPING,
-    sizeScale: 8,
-    pickable: true,
-  });
+  const layer = useMemo(
+    () =>
+      new IconLayer({
+        id: "IconLayer",
+        data,
+        getIcon: () => "marker",
+        getPosition,
+        onClick,
+        getSize: DEFAULT_ICON_SIZE,
+        iconAtlas: MAP_ICON,
+        iconMapping: ICON_MAPPING,
+        sizeScale: 8,
+        pickable: true,
+      }),
+    [data, onClick]
+  );
 
-  const getTooltip = ({ object }) => {
+  const getTooltip = useCallback(({ object }) => {
     return object && `${object.title}`;
-  };
+  }, []);
 
   return (
     <DeckGL

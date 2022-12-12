@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import { Button, Drawer as MaterialDrawer } from "@material-ui/core";
 import {
   CATEGORIES,
@@ -13,8 +13,8 @@ import { useId } from "react";
 function Drawer({ data, onClose }) {
   const { state } = useContext(NasaContext);
   const id = useId();
-  
-  const getCategory = () => {
+
+  const getCategory = useCallback(() => {
     return data?.object?.categories.map((category, index) => {
       const currentCategory =
         category.id &&
@@ -26,17 +26,19 @@ function Drawer({ data, onClose }) {
         </div>
       );
     });
-  };
+  }, [data?.object?.categories, state?.categories?.categories, id]);
 
   // implement only for demo
-  const openAdditionalSources = () => {
+  const openAdditionalSources = useCallback(() => {
     data?.object?.sources.forEach((source) => {
       window.open(source?.url);
     });
-  };
+  }, [data?.object?.sources]);
 
-  const categoryLabel =
-    data?.object?.categories.lenght > 1 ? CATEGORIES : CATEGORY;
+  const categoryLabel = useMemo(
+    () => (data?.object?.categories.lenght > 1 ? CATEGORIES : CATEGORY),
+    [data?.object?.categories.lenght]
+  );
 
   return (
     <MaterialDrawer
