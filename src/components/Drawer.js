@@ -8,11 +8,9 @@ import {
 } from "../constants";
 import "../styles/Drawer.css";
 import { NasaContext } from "../NasaContext/NasaContext";
-import { useId } from "react";
 
 function Drawer({ data, onClose }) {
   const { state } = useContext(NasaContext);
-  const id = useId();
 
   const getCategory = useCallback(() => {
     return data?.object?.categories.map((category, index) => {
@@ -20,13 +18,13 @@ function Drawer({ data, onClose }) {
         category.id &&
         state?.categories?.categories.find((e) => e.id === category.id);
       return (
-        <div className="category" key={`${id}-${index}`}>
+        <div className="category" key={`category-${index}`}>
           <div className="title">{currentCategory?.title}</div>
           <div className="description">{currentCategory.description}</div>
         </div>
       );
     });
-  }, [data?.object?.categories, state?.categories?.categories, id]);
+  }, [data?.object?.categories, state?.categories?.categories]);
 
   // implement only for demo
   const openAdditionalSources = useCallback(() => {

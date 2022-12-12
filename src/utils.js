@@ -15,11 +15,3 @@ export const getPosition = (data) => {
   const center = getCenterOfGeo(coordinates).geometry.coordinates;
   return center;
 };
-
-export const calcIntitialLongitude = (data) => {
-  return 12
-}
-
-export const calcIntitialLatitude = (data) => {
-  return 10
-}
