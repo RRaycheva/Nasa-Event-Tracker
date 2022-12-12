@@ -1,0 +1,2 @@
+export const LOAD_EVENTS = "LOAD_EVENTS"
+export const LOAD_CATEGORIES = 'LOAD_CATEGORIES'
