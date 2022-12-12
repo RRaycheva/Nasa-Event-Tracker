@@ -1,5 +1,5 @@
 # Getting Started with Create React App
-
+Nasa-event-tracker show last 10 Earth Observatory Natural Events
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -13,6 +13,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+Project pictures: 
+<img width="2048" alt="image" src="https://user-images.githubusercontent.com/68399907/207161769-7042edf4-ccc2-43c7-a061-087bebf7007e.png">
+<img width="2048" alt="image" src="https://user-images.githubusercontent.com/68399907/207161894-7c04d227-1d22-491d-be31-b52f7d792124.png">
+
 
 ### `npm test`
 
