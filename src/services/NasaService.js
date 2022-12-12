@@ -6,10 +6,6 @@ export const NasaServiceEventType = {
 };
 
 class NasaService {
-//   constructor() {
-//     this.stored = {};
-//   }
-
   async _handleRequest(type, parameters = {}) {
     try {
       const url = new URL(`${baseURL}/${type}`);

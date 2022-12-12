@@ -1,35 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map as MapBox } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { IconLayer } from "deck.gl";
+import { FlyToInterpolator, IconLayer } from "deck.gl";
 import { MAP_STYLE, MAP_ICON } from "../constants";
-
+import { getPosition } from "../utils";
 
 const ICON_MAPPING = {
   marker: { x: 0, y: 0, width: 128, height: 128, mask: true },
 };
 
-const Map = ({ data, onClick}) => {
-  // Viewport settings
-  const INITIAL_VIEW_STATE = {
-    longitude: 23.319941,
-    latitude: 42.698334,
-    zoom: 5,
-  };
+const Map = ({ data, onClick, onMapClick, viewStateOptions }) => {
+  const [viewState, setViewState] = useState({
+    longitude: 0,
+    latitude: 0,
+    zoom: 0,
+  });
 
+  useEffect(() => {
+    setViewState((current) => ({
+      ...current,
+      ...viewStateOptions,
+      transitionDuration: 500,
+      transitionInterpolator: new FlyToInterpolator(),
+    }));
+  }, [viewStateOptions]);
 
- 
   const layer = new IconLayer({
     id: "IconLayer",
     data,
     getIcon: () => "marker",
-    getPosition: (currentData) => {
-      const coordinates =  currentData.geometries.map((el)=>{
-        return el.coordinates;
-      })
-      return coordinates;
-    },
+    getPosition,
     onClick,
     getSize: () => 5,
     iconAtlas: MAP_ICON,
@@ -38,12 +39,18 @@ const Map = ({ data, onClick}) => {
     pickable: true,
   });
 
+  const getTooltip = ({ object }) => {
+    return object && `${object.title}`;
+  };
+
   return (
     <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
+      viewState={viewState}
+      onViewStateChange={(e) => setViewState(e.viewState)}
       controller={true}
-      getTooltip={({object}) => object && `${object.name}\n${object.address}`} 
+      getTooltip={getTooltip}
       layers={layer}
+      onClick={onMapClick}
     >
       <MapBox
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}

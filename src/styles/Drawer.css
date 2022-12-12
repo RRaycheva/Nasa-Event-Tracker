@@ -1,0 +1,43 @@
+.drawerWrapper{
+    flex-direction: column;
+    display: flex;
+    padding: 32px;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.informationWrapper{
+    padding-bottom: 18px;
+}
+
+.informationWrapper>.title{
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+.informationWrapper>.categoryLabel{
+    font-size: 20px;
+    font-weight: 300;
+    border-bottom: 0.4px solid black;
+    padding-bottom: 5px;
+}
+
+.informationWrapper>.categoryWrapper{
+    margin-top: 11px;
+}
+
+.category>.title{
+    font-size: 20px;
+    font-weight: 240;
+    margin-bottom: 7px;
+}
+
+.category>.description{
+    font-weight: 140;
+}
+
+.MuiDrawer-paper {
+    width: 20%;
+}

@@ -7,3 +7,9 @@ export const DRAWER_ANCHOR = 'left'
 
 // Service
 export const baseURL = 'https://eonet.gsfc.nasa.gov/api/v2.1'
+
+//Drawer
+export const CATEGORIES = 'Categories'
+export const CATEGORY = 'Category'
+
+export const SOURCES_BUTTON_LABEL = 'Sources'
